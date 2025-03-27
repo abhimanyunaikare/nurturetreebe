@@ -1,0 +1,351 @@
+name: 'Tree management'
+description: |-
+
+  APIs for managing Trees
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/trees
+    metadata:
+      groupName: 'Tree management'
+      groupDescription: |-
+
+        APIs for managing Trees
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      species:
+        name: species
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      lat:
+        name: lat
+        description: ''
+        required: true
+        example: 11613.31890586
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      long:
+        name: long
+        description: ''
+        required: true
+        example: 11613.31890586
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: 11613.31890586
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      species: consequatur
+      lat: 11613.31890586
+      long: 11613.31890586
+      user_id: 11613.31890586
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/trees/{id}'
+    metadata:
+      groupName: 'Tree management'
+      groupDescription: |-
+
+        APIs for managing Trees
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the tree.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      species:
+        name: species
+        description: ''
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      lat:
+        name: lat
+        description: ''
+        required: false
+        example: 11613.31890586
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      long:
+        name: long
+        description: ''
+        required: false
+        example: 11613.31890586
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      health_status:
+        name: health_status
+        description: ''
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      species: consequatur
+      lat: 11613.31890586
+      long: 11613.31890586
+      health_status: consequatur
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/trees/{id}'
+    metadata:
+      groupName: 'Tree management'
+      groupDescription: |-
+
+        APIs for managing Trees
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the tree.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/trees/{id}/nurture'
+    metadata:
+      groupName: 'Tree management'
+      groupDescription: |-
+
+        APIs for managing Trees
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the tree.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/trees
+    metadata:
+      groupName: 'Tree management'
+      groupDescription: |-
+
+        APIs for managing Trees
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"success":true,"message":"Trees fetched successfully!","data":{"current_page":1,"data":[{"id":3,"user_id":1,"species":"Mangifera indica","lat":"18.48650000","long":"73.79680000","last_watered":null,"health_status":"Healthy","created_at":"2025-03-25T08:11:19.000000Z","updated_at":"2025-03-25T08:11:19.000000Z","user":{"id":1,"name":"abhi","email":"admin@gmail.cop","email_verified_at":"2025-03-24T22:40:05.000000Z","created_at":"2025-03-24T22:40:05.000000Z","updated_at":"2025-03-25T14:27:45.000000Z","role":"admin"}},{"id":4,"user_id":1,"species":"Mango tree","lat":"18.48650000","long":"73.79680000","last_watered":"2025-03-25 16:52:37","health_status":"Thriving","created_at":"2025-03-25T08:38:23.000000Z","updated_at":"2025-03-25T16:52:37.000000Z","user":{"id":1,"name":"abhi","email":"admin@gmail.cop","email_verified_at":"2025-03-24T22:40:05.000000Z","created_at":"2025-03-24T22:40:05.000000Z","updated_at":"2025-03-25T14:27:45.000000Z","role":"admin"}},{"id":5,"user_id":1,"species":"Neem tree","lat":"28.48650000","long":"53.79680000","last_watered":null,"health_status":"Healthy","created_at":"2025-03-25T16:44:24.000000Z","updated_at":"2025-03-25T16:46:02.000000Z","user":{"id":1,"name":"abhi","email":"admin@gmail.cop","email_verified_at":"2025-03-24T22:40:05.000000Z","created_at":"2025-03-24T22:40:05.000000Z","updated_at":"2025-03-25T14:27:45.000000Z","role":"admin"}}],"first_page_url":"http:\/\/localhost\/api\/trees?page=1","from":1,"last_page":1,"last_page_url":"http:\/\/localhost\/api\/trees?page=1","links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/trees?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"next_page_url":null,"path":"http:\/\/localhost\/api\/trees","per_page":10,"prev_page_url":null,"to":3,"total":3}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '30'
+          x-ratelimit-remaining: '29'
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/trees/{id}'
+    metadata:
+      groupName: 'Tree management'
+      groupDescription: |-
+
+        APIs for managing Trees
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the tree.'
+        required: true
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 3
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"success":true,"message":"Tree fetched successfully!","data":{"id":3,"user_id":1,"species":"Mangifera indica","lat":"18.48650000","long":"73.79680000","last_watered":null,"health_status":"Healthy","created_at":"2025-03-25T08:11:19.000000Z","updated_at":"2025-03-25T08:11:19.000000Z","user":{"id":1,"name":"abhi","email":"admin@gmail.cop","email_verified_at":"2025-03-24T22:40:05.000000Z","created_at":"2025-03-24T22:40:05.000000Z","updated_at":"2025-03-25T14:27:45.000000Z","role":"admin"}}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '30'
+          x-ratelimit-remaining: '29'
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

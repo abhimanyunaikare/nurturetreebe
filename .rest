@@ -1,0 +1,13 @@
+GET http://127.0.0.1:8000/api/trees
+
+###
+
+POST http://127.0.0.1:8000/api/trees
+Content-Type: application/json
+
+{
+    "species": "Mangifera indica",
+    "lat": "18.4865",
+    "long": "73.7968",
+    "user_id" : 1
+}
