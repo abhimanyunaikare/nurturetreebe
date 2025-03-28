@@ -26,19 +26,24 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:6',
-            'role' => 'required'
+            // 'role' => 'required'
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
+            'password' => $validated['password'],    //Hash::make($validated['password']),
+            'role' => 'user' //$validated['role'],
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'User registered successfully!',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
             'token' => $user->createToken('api-token')->plainTextToken
         ], 201);
     }
@@ -61,9 +66,37 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Login successful!',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
             'token' => $user->createToken('api-token')->plainTextToken
         ]);
     }
+    
+    public function user(Request $request)
+    {
+        // Validate input
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
+    
+        // Fetch user from DB
+        $user = User::where('email', $request->input('email'))->firstOrFail();
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'User found!',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+            'token' => $user->createToken('api-token')->plainTextToken
+        ]);
+    }
+    
 
     public function logout(Request $request)
     {

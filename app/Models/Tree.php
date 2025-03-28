@@ -9,7 +9,7 @@ class Tree extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['user_id', 'species', 'lat', 'long', 'last_watered', 'health_status'];
+    protected $fillable = ['user_id', 'species', 'lat', 'long', 'last_watered', 'health_status', 'age', 'interval', 'sunlight', 'water_qty','created_by','watered_by'];
 
     public function user()
     {

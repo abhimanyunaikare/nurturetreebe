@@ -22,7 +22,6 @@ class TreeController extends Controller
             'species' => 'required|string',
             'lat' => 'required|numeric',            
             'long' => 'required|numeric',
-            'user_id' => 'required|numeric',
         ]);
 
         $tree = Tree::create([
@@ -30,7 +29,13 @@ class TreeController extends Controller
             'species' => $request->species,
             'lat' => $request->lat,
             'long' => $request->long,
-            'user_id' => $request->user_id
+            'age' => $request->age,
+            'interval' => $request->interval,
+            'sunlight' => $request->sunlight,
+            'water_qty' => $request->water_qty,
+            'created_by' => $request->created_by,
+            'watered_by' => $request->watered_by,
+            'user_id' => 1
         ]);
 
         return ApiResponse::success('Tree planted successfully!', $tree, 201);
@@ -62,7 +67,7 @@ class TreeController extends Controller
             return ApiResponse::error('Unauthorized', 403);
         }
 
-        $tree->update($request->only(['species', 'lat', 'long', 'health_status']));
+        $tree->update($request->only(['species', 'lat', 'long', 'health_status', 'age']));
         Cache::forget('trees'); // Clear cache after update
 
         return ApiResponse::success('Tree updated successfully!', $tree);
@@ -90,13 +95,14 @@ class TreeController extends Controller
         return ApiResponse::success('Tree fetched successfully!', $tree);
     }
 
-    public function nurture($id)
+    public function nurture(Request $request,$id)
     {
         $tree = Tree::findOrFail($id); // Find tree or return 404
-
+        
         $tree->update([
-            'last_watered' => now(), // Update the last_watered timestamp
-            'health_status' => 'Thriving' // Optional: Change health status
+            'last_watered' => now(), 
+            'health_status' => 'Thriving',
+            'watered_by' => $request->watered_by, // Store who watered the tree
         ]);
 
         return ApiResponse::success('Tree nurtured successfully!', $tree);

@@ -47,7 +47,9 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // Encrypt password
+            'password' => 'password', // bcrypt($request->password), // Encrypt password
+            'role' => 'user',
+
         ]);
 
         return response()->json(['message' => 'User created successfully!', 'user' => $user], 201);
