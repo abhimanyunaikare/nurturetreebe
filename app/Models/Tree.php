@@ -11,9 +11,14 @@ class Tree extends Model
     
     protected $fillable = ['user_id', 'species', 'lat', 'long', 'last_watered', 'health_status', 'age', 'interval', 'sunlight', 'water_qty','created_by','watered_by'];
 
-    public function user()
+    public function creator()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function waterer()
+    {
+        return $this->belongsTo(User::class, 'watered_by');
     }
 }
 

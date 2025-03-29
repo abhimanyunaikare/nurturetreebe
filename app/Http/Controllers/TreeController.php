@@ -34,7 +34,7 @@ class TreeController extends Controller
             'sunlight' => $request->sunlight,
             'water_qty' => $request->water_qty,
             'created_by' => $request->created_by,
-            'watered_by' => $request->watered_by,
+            'watered_by' => $request->created_by,
             'user_id' => 1
         ]);
 
@@ -45,7 +45,7 @@ class TreeController extends Controller
     {
         
         $trees = Cache::remember('trees', 60, function () {
-            return Tree::with('user')->paginate(10);
+            return Tree::with(['creator', 'waterer'])->paginate(10);
         });
 
         return ApiResponse::success('Trees fetched successfully!', $trees);
