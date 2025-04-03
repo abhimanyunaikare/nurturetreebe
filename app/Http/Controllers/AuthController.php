@@ -20,7 +20,6 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        // dd($request);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -29,23 +28,31 @@ class AuthController extends Controller
             // 'role' => 'required'
         ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'],    //Hash::make($validated['password']),
-            'role' => 'user' //$validated['role'],
-        ]);
+        try{
+            
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => $validated['password'],    //Hash::make($validated['password']),
+                'role' => 'user' //$validated['role'],
+            ]);
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'User registered successfully!',
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                ],
+                'token' => $user->createToken('api-token')->plainTextToken
+            ], 201);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User registered successfully!',
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-            ],
-            'token' => $user->createToken('api-token')->plainTextToken
-        ], 201);
     }
 
     public function login(Request $request)
@@ -81,6 +88,8 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email|exists:users,email'
         ]);
+
+        return $request;
     
         // Fetch user from DB
         $user = User::where('email', $request->input('email'))->firstOrFail();

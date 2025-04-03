@@ -9,8 +9,8 @@ use App\Http\Controllers\UserController;
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () 
 {
-    Route::get('/users', [UserController::class, 'index']);  // Get all users
-    Route::get('/users/{id}', [UserController::class, 'show']); // Get single user}
+    // Route::get('/users', [UserController::class, 'index']);  // Get all users
+    // Route::get('/users/{id}', [UserController::class, 'show']); // Get single user}
 
 });
 
@@ -34,7 +34,10 @@ Route::get('/trees/{id}', [TreeController::class, 'show']); // View a specific t
 
 // Authentication Routes
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/user', [AuthController::class, 'user']);
+Route::post('/register', [UserController::class, 'register']);
+Route::get('/user', [UserController::class, 'getUser']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+Route::get('/users', [UserController::class, 'index']);  // Get all users
+Route::get('/users/{id}', [UserController::class, 'show']); // Get single user}

@@ -35,7 +35,8 @@ class TreeController extends Controller
             'water_qty' => $request->water_qty,
             'created_by' => $request->created_by,
             'watered_by' => $request->created_by,
-            'user_id' => 1
+            'user_id' => 1,
+            'last_watered' => now()
         ]);
 
         return ApiResponse::success('Tree planted successfully!', $tree, 201);
