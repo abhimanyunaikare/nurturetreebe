@@ -17,7 +17,8 @@ WORKDIR /var/www
 # Copy all files
 COPY . .
 
-# Install Laravel dependencies
+# Install Laravel dependencies with plugin support
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-dev --optimize-autoloader
 
 # Generate app key (optional if you do it from .env)
