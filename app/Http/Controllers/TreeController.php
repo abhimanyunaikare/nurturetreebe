@@ -43,14 +43,49 @@ class TreeController extends Controller
 
         ]);
 
+        Cache::forget('trees');
+
         return ApiResponse::success('Tree planted successfully!', $tree, 201);
     }
 
-    public function index()
+    public function updateStatus(Request $request, $id)
     {
+        $tree = Tree::findOrFail($id);
+        $tree->status = $request->status;
+        $tree->save();
+
+        Cache::forget('trees');
+
+        return response()->json(['message' => 'Tree status updated']);
+    }
+
+    public function index(Request $request)
+    {
+        $filter = $request->query('filter', 'all');
+        $userId = $request->query('user_id');
+
+        // Create a unique cache key for different filters
+        $cacheKey = "trees_{$filter}_" . ($userId ?? 'all');
         
-        $trees = Cache::remember('trees', 60, function () {
-            return Tree::with(['creator', 'waterer'])->paginate(100);
+        $trees = Cache::remember($cacheKey, 60, function () use ($filter, $userId){
+            $query = Tree::with(['creator', 'waterer']);
+
+            if ($filter === 'my' && $userId) {
+                $query->where('created_by', $userId);
+            }
+            else if ($filter === 'dead') {
+                $query->where('status', 0);
+            } else {
+                $query->where('status', 1);
+            }
+
+            return $query
+                    ->paginate(100)
+                    ->through(function ($tree) {
+                        $daysSinceCreated = Carbon::parse($tree->created_at)->diffInDays(now());
+                        $tree->age = (int) ($tree->age + $daysSinceCreated);
+                        return $tree;
+                    });
         });
 
         // Add water_requirement status
@@ -61,31 +96,47 @@ class TreeController extends Controller
         // });
 
         // Filter trees that need watering
-        $filteredTrees = $trees->filter(function ($tree) {
-            return $this->calculateWaterRequirement($tree) === 1;
-        });
+
+        if ($filter != 'my')
+        {
+            $trees = $trees->filter(function ($tree) {
+                return $this->calculateWaterRequirement($tree) === 1;
+            });
+        }
 
         return ApiResponse::success('Trees fetched successfully!', $trees);
     }
 
     /**
- * Determine if a tree needs watering
- */
-private function calculateWaterRequirement($tree)
-{
-    // If last_watered is null, it needs watering
-    if (!$tree->last_watered) {
-        return 1;
+     * Determine if a tree needs watering
+     */
+    private function calculateWaterRequirement($tree)
+    {
+        // If last_watered is null, it needs watering
+        if (!$tree->last_watered) {
+            return 1;
+        }
+
+        // Convert last_watered to Carbon instance
+        $lastWatered = Carbon::parse($tree->last_watered);
+        $interval = $tree->interval ?? 0; // Ensure interval is numeric
+        $nextWateringDate = $lastWatered->addDays($interval);
+
+        // Compare with today's date
+        return Carbon::today()->greaterThan($nextWateringDate) ? 1 : 0;
     }
 
-    // Convert last_watered to Carbon instance
-    $lastWatered = Carbon::parse($tree->last_watered);
-    $interval = $tree->interval ?? 0; // Ensure interval is numeric
-    $nextWateringDate = $lastWatered->addDays($interval);
 
-    // Compare with today's date
-    return Carbon::today()->greaterThan($nextWateringDate) ? 1 : 0;
-}
+    public function showByUser(Request $request)
+    {
+        
+        $trees = Cache::remember('trees', 60, function () {
+            return Tree::with(['creator', 'waterer'])
+                    ->where('created_by', $request->user);
+        });
+
+        return ApiResponse::success('Trees fetched successfully!', $trees);
+    }
 
     public function update(Request $request, $id)
     {
